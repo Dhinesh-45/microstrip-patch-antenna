@@ -2,215 +2,59 @@
 Design and simulation of a Microstripline Rectangular Patch Antenna using CST Studio Suite
 > **Note:** The patch and feedline dimensions mentioned here are based on standard design equations for a 2.4 GHz antenna.
 > The actual dimensions used in the CST simulation may slightly differ, as fine-tuning was done during the design process.
-Basic Design Equations
+Example Parameters (2.4 GHz, FR-4 Substrate)
 
-For a rectangular microstrip patch antenna:
+Substrate: FR-4 (εr = 4.4, h = 1.6 mm)
 
-Resonant Frequency (f₀):
+Ground Plane: Copper, size ~ (W+6h) × (L+6h)
 
-𝑓
-0
-=
-𝑐
-2
-𝐿
-𝜖
-𝑒
-𝑓
-𝑓
-f
-0
-	​
+Patch: Copper, thickness ~ 0.035 mm
 
-=
-2L
-ϵ
-eff
-	​
+Feed: Microstripline (width calculated for 50Ω using LineCalc in CST or formula)
 
-	​
+From calculations:
 
-c
-	​
+Patch Width (W) ≈ 38 mm
 
+Patch Length (L) ≈ 29 mm
 
-Effective Dielectric Constant (ε_eff):
+Feedline Width ≈ 3 mm
 
-𝜖
-𝑒
-𝑓
-𝑓
-=
-𝜖
-𝑟
-+
-1
-2
-+
-𝜖
-𝑟
-−
-1
-2
-(
-1
-1
-+
-12
-ℎ
-/
-𝑊
-)
-ϵ
-eff
-	​
+CST Modeling Steps
 
-=
-2
-ϵ
-r
-	​
+Create Substrate:
 
-+1
-	​
+Draw box → Material: FR-4 → Size (W+extra, L+extra, h).
 
-+
-2
-ϵ
-r
-	​
+Ground Plane:
 
-−1
-	​
+Draw sheet (metal) → Place at bottom of substrate.
 
-(
-1+12h/W
-	​
+Patch:
 
-1
-	​
+Draw sheet (metal) → Place on top of substrate → Dimensions (W × L).
 
-)
+Feedline:
 
-Patch Width (W):
+Draw microstripline → Width = ~3 mm, length extending out.
 
-𝑊
-=
-𝑐
-2
-𝑓
-0
-2
-𝜖
-𝑟
-+
-1
-W=
-2f
-0
-	​
+Excite using Waveguide Port at end of feed.
 
-c
-	​
+Boundary Conditions:
 
-ϵ
-r
-	​
+Open (add space).
 
-+1
-2
-	​
+Simulation:
 
-	​
+Frequency range 2–3 GHz.
 
+Run frequency domain solver.
+Results to Check
 
-Patch Length (L):
+S11 (Return Loss): Should be ≤ –10 dB at 2.4 GHz.
 
-𝐿
-=
-𝑐
-2
-𝑓
-0
-𝜖
-𝑒
-𝑓
-𝑓
-−
-2
-Δ
-𝐿
-L=
-2f
-0
-	​
+VSWR: ~1–2.
 
-ϵ
-eff
-	​
+Radiation Pattern: Broadside (in Z-direction).
 
-	​
-
-c
-	​
-
-−2ΔL
-
-Length Extension (ΔL):
-
-Δ
-𝐿
-=
-0.412
-ℎ
-(
-𝜖
-𝑒
-𝑓
-𝑓
-+
-0.3
-)
-(
-𝑊
-/
-ℎ
-+
-0.264
-)
-(
-𝜖
-𝑒
-𝑓
-𝑓
-−
-0.258
-)
-(
-𝑊
-/
-ℎ
-+
-0.8
-)
-ΔL=0.412h
-(ϵ
-eff
-	​
-
-−0.258)(W/h+0.8)
-(ϵ
-eff
-	​
-
-+0.3)(W/h+0.264)
-	​
-
-
-👉 Here:
-
-c = speed of light (3×10⁸ m/s)
-
-εr = dielectric constant (FR-4: ~4.4, Rogers 5880: ~2.2)
-
-h = substrate thickness (1.6 mm typical for FR-4)
+Gain: Typically 5–7 dBi for patch.
